@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\products;
 use Illuminate\Http\Request;
 
 class frontendcontroller extends Controller
@@ -20,14 +21,16 @@ class frontendcontroller extends Controller
     }
     function index()
     {
-        return view('index');
+        $products=products::all();
+        return view('index',['products'=>$products]);
     }
     function products()
     {
         return view('products');
     }
-    function single_product()
+    function single_product($id)
     {
-        return view('single_product');
+        $products=products::find($id);
+        return view('single_product',['products'=>$products]);
     }
 }

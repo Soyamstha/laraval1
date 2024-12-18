@@ -24,24 +24,7 @@
 
     <body>
         <!-- Nav Start -->
-        <div id="nav">
-            <div class="container-fluid">
-                <div id="logo" class="pull-left">
-                    <a href="index.html"><img src="img/logo.png" alt="Logo" /></a>
-                </div>
-
-                <nav id="nav-menu-container">
-                    <ul class="nav-menu">
-                        <li class="menu-active"><a href="{{url('/index')}}">Home</a></li>
-                        <li><a href="{{url('/products')}}">Products</a></li>
-                        <li><a href="{{url('/about')}}">About</a></li>
-                        <li><a href="#testimonials">Reviews</a></li>
-                        <li><a href="{{url('/cart')}}">Cart</a></li>
-
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        @include('layout.navbar')
         <!-- Nav End -->
 
         <!-- Header Start-->
@@ -201,54 +184,29 @@
                     </p>
                 </div>
                 <div class="row align-items-center">
+                    @foreach ($products as $product )
                     <div class="col-md-3">
                         <div class="product-single">
                             <div class="product-img">
-                                <img src="img/product-1.png" alt="Product Image">
+                                <img src="{{asset('img/'.$product->image)}}" alt="Product Image">
                             </div>
                             <div class="product-content">
-                                <h2>Sports Edition</h2>
-                                <h3>$149</h3>
+                                <h2>
+                                    <a href="{{route('single_product',$product->id)}}">{{$product->name}}</a>
+
+                                </h2>
+                                @if ($product->sellprice!=null)
+                                <h3>${{$product->sellprice}}</h3>
+                                <h3 style="text-decoration: line-through">RS {{$product->price}} </h3>
+                                @else
+                                <h3>RS{{$product->price}}</h3>
+                                @endif
                                 <a class="btn" href="#">Buy Now</a>
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-3">
-                        <div class="product-single">
-                            <div class="product-img">
-                                <img src="img/product-2.png" alt="Product Image">
-                            </div>
-                            <div class="product-content">
-                                <h2>Sports Edition</h2>
-                                <h3>$199</h3>
-                                <a class="btn" href="#">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="product-single">
-                            <div class="product-img">
-                                <img src="img/product-3.png" alt="Product Image">
-                            </div>
-                            <div class="product-content">
-                                <h2>Sports Edition</h2>
-                                <h3>$249</h3>
-                                <a class="btn" href="#">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="product-single">
-                            <div class="product-img">
-                                <img src="img/product-4.png" alt="Product Image">
-                            </div>
-                            <div class="product-content">
-                                <h2>Sports Edition</h2>
-                                <h3>$299</h3>
-                                <a class="btn" href="#">Buy Now</a>
-                            </div>
-                        </div>
-                    </div>
+
+                    @endforeach
                 </div>
 
                 <div class="mt-5 text-center"><a href="" class="btn btn-primary">Buy Now</a></div>
@@ -444,18 +402,7 @@
 
 
         <!-- Footer Start -->
-        <div id="footer">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-md-6">
-                        <p>&copy; Copyright <a href="http://calmandcode.com">CalmAndCode</a>. All Rights Reserved</p>
-                    </div>
-                    <div class="col-md-6">
-                        <p>Template by <a href="">CalmAndCode</a></p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @include('layout.footer')
         <!-- Footer End -->
 
 

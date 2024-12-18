@@ -24,31 +24,14 @@
 
     <body>
         <!-- Nav Start -->
-        <div id="nav">
-            <div class="container-fluid">
-                <div id="logo" class="pull-left">
-                    <a href="index.html"><img src="img/logo.png" alt="Logo" /></a>
-                </div>
-
-                <nav id="nav-menu-container">
-                    <ul class="nav-menu">
-                        <li class="menu-active"><a href="#header">Home</a></li>
-                        <li><a href="#products">Products</a></li>
-                        <li><a href="">About</a></li>
-                        <li><a href="#testimonials">Reviews</a></li>
-                        <li><a href="">Cart</a></li>
-                    
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        @include('layout.navbar')
         <!-- Nav End -->
-        
-   
-  
 
-        
-        
+
+
+
+
+
         <!-- Products Start -->
         <div id="products">
             <div class="container">
@@ -112,12 +95,12 @@
             </div>
         </div>
         <!-- Products End -->
-        
-        
 
-  
 
-        
+        @include('layout.footer')
+
+
+
         <!-- JavaScript Libraries -->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.bundle.min.js"></script>
