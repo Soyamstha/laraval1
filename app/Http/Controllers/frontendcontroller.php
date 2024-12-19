@@ -21,8 +21,8 @@ class frontendcontroller extends Controller
     }
     function index()
     {
-        $products=products::all();
-        return view('index',['products'=>$products]);
+        $products = products::all();
+        return view('index', ['products' => $products]);
     }
     function products()
     {
@@ -30,7 +30,52 @@ class frontendcontroller extends Controller
     }
     function single_product($id)
     {
-        $products=products::find($id);
-        return view('single_product',['products'=>$products]);
+        $products = products::find($id);
+        return view('single_product', ['products' => $products]);
+    }
+    function add_to_cart(REQUEST $request)
+    {
+        if ($request->session()->has('cart')) {
+            $cart = $request->session()->get('cart');
+            $product_ids = array_column($cart, 'id');
+            if (!in_array($request->id,$product_ids)) {
+                $id = $request->id;
+                $name = $request->name;
+                $image = $request->image;
+                $quantity = $request->quantity;
+                ($request->sellprice != null) ? $price = $request->sellprice : $price = $request->price;
+                $product_array[] = array(
+                    'id' => $id,
+                    'name' => $name,
+                    'image' => $image,
+                    'quantity' => $quantity,
+                    'price' => $price
+                );
+                $cart[$request->id] = $product_array;
+                $request->session()->put('cart', $cart);
+                return view('cart');
+            }
+            else
+            {
+                return redirect()->back()->withErrors(['message'=>'product already added to cart']);
+            }
+        }
+        else {
+            $id = $request->id;
+            $name = $request->name;
+            $image = $request->image;
+            $quantity = $request->quantity;
+            ($request->sellprice != null) ? $price = $request->sellprice : $price = $request->price;
+            $product_array[] = array(
+                'id' => $id,
+                'name' => $name,
+                'image' => $image,
+                'quantity' => $quantity,
+                'price' => $price
+            );
+            $cart[$request->id] = $product_array;
+            $request->session()->put('cart', $cart);
+            return view('cart');
+        }
     }
 }
