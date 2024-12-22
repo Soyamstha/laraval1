@@ -47,36 +47,47 @@
                 <th>Quantity</th>
                 <th>Subtotal</th>
             </tr>
+                @php
+                    $total = 0;
+                @endphp
 
 
+                        @if (Session::has('cart'))
+                            @foreach (Session::get('cart') as $product)
+                            <tr>
+                                <td>
+                                    <div class="product-info">
+                                        <img src="{{asset('img/'.$product['image']);}}">
+                                        <div>
+                                            <p>{{$product['name']}}</p>
+                                            <small><span>RS</span>{{$product['price']}}</small>
+                                            <br>
+                                            <form >
 
-                    <tr>
-                        <td>
-                            <div class="product-info">
-                                <img src="img/menu-1.jpg">
-                                <div>
-                                    <p>Hot Coffee</p>
-                                    <small><span>$</span>199</small>
-                                    <br>
-                                    <form >
+                                                <input type="submit" name="remove_btn" class="remove-btn" value="remove">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </td>
 
-                                        <input type="submit" name="remove_btn" class="remove-btn" value="remove">
+                                <td>
+                                    <form>
+                                        <input type="number" name="quantity" value="1">
+                                        <input type="submit" value="edit" class="edit-btn" name="edit_product_quantity_btn">
                                     </form>
-                                </div>
-                            </div>
-                        </td>
+                                </td>
+                                <td>
+                                    <span class="product-price">{{$product['price']}}</span>
+                                </td>
+                            </tr>
+                            @php
+                                $total=$total+$product['price'];
+                            @endphp
+                            @endforeach
+                        @endif
 
-                        <td>
-                            <form>
-                                <input type="number" name="quantity" value="1">
-                                <input type="submit" value="edit" class="edit-btn" name="edit_product_quantity_btn">
-                            </form>
-                        </td>
 
-                        <td>
-                            <span class="product-price">$199</span>
-                        </td>
-                    </tr>
+
 
 
         </table>
@@ -87,7 +98,7 @@
 
                 <tr>
                     <td>Total</td>
-                    <td>$199</td>
+                    <td>{{$total}}</td>
                 </tr>
 
             </table>

@@ -30,7 +30,7 @@
                                         <input type="hidden" name="id" value="{{$products->id}}">
                                         <input type="hidden" name="name" value="{{$products->name}}">
                                         <input type="hidden" name="price" value="{{$products->price}}">
-                                        <input type="hidden" name="sell_price" value="{{$products->sellprice}}">
+                                        <input type="hidden" name="sellprice" value="{{$products->sellprice}}">
                                         <input type="hidden" name="image" value="{{$products->image}}">
                                         <input type="hidden" name="quantity" value="1">
                                         <button type="submit" class="btn btn-primary">Add to Cart</button>

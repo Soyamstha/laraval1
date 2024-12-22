@@ -44,7 +44,7 @@ class frontendcontroller extends Controller
                 $image = $request->image;
                 $quantity = $request->quantity;
                 ($request->sellprice != null) ? $price = $request->sellprice : $price = $request->price;
-                $product_array[] = array(
+                $product_array= array(
                     'id' => $id,
                     'name' => $name,
                     'image' => $image,
@@ -66,7 +66,7 @@ class frontendcontroller extends Controller
             $image = $request->image;
             $quantity = $request->quantity;
             ($request->sellprice != null) ? $price = $request->sellprice : $price = $request->price;
-            $product_array[] = array(
+            $product_array = array(
                 'id' => $id,
                 'name' => $name,
                 'image' => $image,
