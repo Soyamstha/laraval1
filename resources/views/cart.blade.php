@@ -39,6 +39,9 @@
     <section class="cart container mt-2 my-3 py-5">
         <div class="container mt-2">
             <h4>Your Cart</h4>
+            @foreach ($errors->all() as $error)
+                <h3>{{ $error }}</h3>
+            @endforeach
         </div>
 
         <table class="pt-5">
@@ -62,9 +65,10 @@
                                             <p>{{$product['name']}}</p>
                                             <small><span>RS</span>{{$product['price']}}</small>
                                             <br>
-                                            <form >
-
-                                                <input type="submit" name="remove_btn" class="remove-btn" value="remove">
+                                            <form action="{{route('remove_from_cart')}}" method="POST">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{$product['id']}}">
+                                                <input type="submit" value="remove" class="edit-btn">
                                             </form>
                                         </div>
                                     </div>
@@ -81,7 +85,7 @@
                                 </td>
                             </tr>
                             @php
-                                $total=$total+$product['price'];
+                                $total=$total+$product['quantity']*$product['price'];
                             @endphp
                             @endforeach
                         @endif
@@ -98,7 +102,7 @@
 
                 <tr>
                     <td>Total</td>
-                    <td>{{$total}}</td>
+                    <td>RS {{$total}}</td>
                 </tr>
 
             </table>

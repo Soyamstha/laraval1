@@ -33,6 +33,14 @@ class frontendcontroller extends Controller
         $products = products::find($id);
         return view('single_product', ['products' => $products]);
     }
+    function remove_from_cart(Request $request)
+    {
+        $cart=$request->session()->get('cart');
+        $id_to_delete=$request->id;
+        unset($cart[$id_to_delete]);
+        $request->session()->put('cart',$cart);
+        return redirect()->back()->withErrors(['message'=>'Cart item deleted sucessfully.']);
+    }
     function add_to_cart(REQUEST $request)
     {
         if ($request->session()->has('cart')) {
