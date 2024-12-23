@@ -52,6 +52,7 @@
             </tr>
                 @php
                     $total = 0;
+                    $subtotal=0;
                 @endphp
 
 
@@ -68,24 +69,29 @@
                                             <form action="{{route('remove_from_cart')}}" method="POST">
                                                 @csrf
                                                 <input type="hidden" name="id" value="{{$product['id']}}">
-                                                <input type="submit" value="remove" class="edit-btn">
+                                                <input type="submit" name="remove_btn" class="remove-btn" value="remove">
                                             </form>
                                         </div>
                                     </div>
                                 </td>
-
+                                @php
+                                    $subtotal = $product['price'] * $product['quantity'];
+                                @endphp
                                 <td>
-                                    <form>
-                                        <input type="number" name="quantity" value="1">
+                                    <form action="{{route('add_quantity')}}"  method="POST">
+                                        @csrf
+                                        <input type="hidden" name="id" value="{{$product['id']}}">
+                                        <input type="number" name="quantity" value="{{$product['quantity']}}">
                                         <input type="submit" value="edit" class="edit-btn" name="edit_product_quantity_btn">
                                     </form>
                                 </td>
                                 <td>
-                                    <span class="product-price">{{$product['price']}}</span>
+                                    <span class="product-price">{{$subtotal}}</span>
                                 </td>
                             </tr>
                             @php
                                 $total=$total+$product['quantity']*$product['price'];
+                                $subtotal=0;
                             @endphp
                             @endforeach
                         @endif

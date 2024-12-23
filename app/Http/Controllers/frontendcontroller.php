@@ -86,4 +86,12 @@ class frontendcontroller extends Controller
             return view('cart');
         }
     }
+    function add_quantity(Request $request)
+    {
+        $cart=$request->session()->get('cart');
+        $id=$request->id;
+        $cart[$id]['quantity']=$request->quantity;
+        $request->session()->put('cart',$cart);
+        return redirect()->back();
+    }
 }
