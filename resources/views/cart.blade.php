@@ -86,7 +86,7 @@
                                     </form>
                                 </td>
                                 <td>
-                                    <span class="product-price">{{$subtotal}}</span>
+                                    <span class="product-price">RS {{$subtotal}}</span>
                                 </td>
                             </tr>
                             @php
@@ -117,7 +117,7 @@
 
         <div class="checkout-container">
 
-            <form >
+            <form action="{{route("checkout")}}" method="GET">
                 <input type="submit" class="btn checkout-btn" value="Checkout" name="">
             </form>
 

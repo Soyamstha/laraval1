@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\order;
+use App\Models\orderitem;
 use App\Models\products;
 use Illuminate\Http\Request;
 
@@ -80,6 +82,7 @@ class frontendcontroller extends Controller
                 'image' => $image,
                 'quantity' => $quantity,
                 'price' => $price
+
             );
             $cart[$request->id] = $product_array;
             $request->session()->put('cart', $cart);
@@ -93,5 +96,31 @@ class frontendcontroller extends Controller
         $cart[$id]['quantity']=$request->quantity;
         $request->session()->put('cart',$cart);
         return redirect()->back();
+    }
+    function place_order(Request $request)
+    {
+        $order =new order();
+        $order->name=$request->name;
+        $order->email=$request->email;
+        $order->city=$request->city;
+        $order->address=$request->address;
+        $order->phone=$request->phone;
+        $order->cost=$request->cost;
+        $order->status="not paid";
+        $order->date=date("y-m-d");
+        $order->save();
+        $cart=$request->session()->get('cart');
+        foreach($cart as $value)
+        {
+            $orderitem=new orderitem();
+            $orderitem->order_id=$order->id;
+            $orderitem->product_id=$value['id'];
+            $orderitem->product_name=$value['quantity'];
+            $orderitem->product_price=$value['price'];
+            $orderitem->product_image=$value['image'];
+            $orderitem->product_quantity=$value['quantity'];
+            $orderitem->order_date=date("y-m-d");
+            $orderitem->save();
+        }
     }
 }
